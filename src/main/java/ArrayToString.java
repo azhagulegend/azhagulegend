@@ -8,7 +8,5 @@ public class ArrayToString {
 
 		String str = Arrays.toString(strArr).replaceAll("\\[", "").replaceAll("\\]", "");
 		System.out.println("Java String array to String = " + str);
-		System.out.println("Java String array to String = " + str);
-
 	}
 }
