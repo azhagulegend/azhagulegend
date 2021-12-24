@@ -4,13 +4,10 @@ $sourceDir = 'C:\Azhagu\Workspace\ProjectAlpha\'
 $DestinationDir = 'C:\Azhagu\Repo\azhagulegend\'
 
 #$args[0]
-
-
 $nowtime1 = get-date -UFormat %d-%m-%Y
 Write-Host $TodayStartTime
 $TodayStartTime = [Datetime]::ParseExact($nowtime1, 'dd-MM-yyyy', $null)
 Write-Host $TodayStartTime
-
 
 Get-ChildItem -Recurse $sourceDir | ForEach-Object {
       $lastupdatetime = $_.LastWriteTime
@@ -31,13 +28,6 @@ Get-ChildItem -Recurse $sourceDir | ForEach-Object {
             If (!(test-path $destinationpath)) {
                   New-Item -ItemType Directory -Force -Path $destinationpath
             }
-
-
-
-
             Copy-Item -Path $_.FullName -Destination $destinationpath
-      }
-      else {
-
       }
 }
