@@ -41,7 +41,11 @@ public class SortMaplist {
 			i++;
 		} while (i < 3);
 		System.out.println(" mlFinal  = " + mlFinal);
-		Collections.sort(mlFinal, sortML.new CustomComparator("Key1"));
+		Collections.sort(mlFinal, sortML.new CustomComparator("Key1","ascending"));
+		System.out.println(" mlFinal  = " + mlFinal);
+		Collections.sort(mlFinal, sortML.new CustomComparator("Key1","null"));
+		System.out.println(" mlFinal  = " + mlFinal);
+		Collections.sort(mlFinal, sortML.new CustomComparator("Key1","descending"));
 		System.out.println(" mlFinal  = " + mlFinal);
 	}
 
@@ -67,19 +71,37 @@ public class SortMaplist {
 	 */
 	public class CustomComparator implements Comparator<Map<String, String>> {
 		private String sortkey;
-		private final List<String> sortorder = Arrays.asList(FE, MID, ME);
+		private final String sortorder;
+		private final List<String> customorder = Arrays.asList(FE, MID, ME);
 
-		public CustomComparator(String sVarToStart) {
+		public CustomComparator(String sVarToStart, String sortorder) {
 			this.sortkey = sVarToStart;
+			
+			
+			if ("descending".equalsIgnoreCase(sortorder)) {
+				this.sortorder = sortorder;
+			} else {
+				this.sortorder = "asdending";
+			}
+			
 		}
 
 		@Override
 		public int compare(Map<String, String> o1, Map<String, String> o2) {
-			int o1_index = sortorder.indexOf(o1.get(sortkey));
+			int res=1;
+			int o1_index = customorder.indexOf(o1.get(sortkey));
 			o1_index = o1_index == -1 ? 0 : o1_index;
-			int o2_index = sortorder.indexOf(o2.get(sortkey));
+			int o2_index = customorder.indexOf(o2.get(sortkey));
 			o2_index = o2_index == -1 ? 0 : o2_index;
-			int res = o2_index - o1_index;
+			
+			
+			if (this.sortorder.equalsIgnoreCase("descending")) {
+				 res = o2_index - o1_index;
+			} else {
+				 res = o1_index - o2_index;
+			}
+			
+			
 			return res;
 		}
 	}
