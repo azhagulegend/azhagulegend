@@ -1,41 +1,43 @@
 ﻿
 
-$sourceDir = 'C:\Azhagu\Workspace\ProjectAlpha\src'
-$DestinationDir= 'C:\Azhagu\Repo\azhagulegend\src'
+$sourceDir = 'C:\Azhagu\Workspace\ProjectAlpha\'
+$DestinationDir = 'C:\Azhagu\Repo\azhagulegend\'
 
-$TodayStartTime = get-date -UFormat %d-%m-%Y
-$TodayStartTime=[Datetime]::ParseExact($nowtime1, 'MM-dd-yyyy', $null)
+#$args[0]
+
+
+$nowtime1 = get-date -UFormat %d-%m-%Y
+Write-Host $TodayStartTime
+$TodayStartTime = [Datetime]::ParseExact($nowtime1, 'dd-MM-yyyy', $null)
 Write-Host $TodayStartTime
 
 
-Get-ChildItem -Recurse $sourceDir | Foreach {
-$lastupdatetime=$_.LastWriteTime
-if ($TodayStartTime - $lastupdatetime -le 0)
-{
-Write-Host "File modified within 24 hours "$_.Name
-$_.Extension
-$_.BaseName
-$_.FullName
+Get-ChildItem -Recurse $sourceDir | ForEach-Object {
+      $lastupdatetime = $_.LastWriteTime
+      Write-Host $lastupdatetime
+      if ($TodayStartTime - $lastupdatetime -le 0) {
+            Write-Host "File modified within 24 hours "$_.Name
+            $_.Extension
+            $_.BaseName
+            $_.FullName
 
 
-$destinationpath = $_.FullName.Replace($sourceDir,$DestinationDir)
-$destinationpath
+            $destinationpath = $_.FullName.Replace($sourceDir, $DestinationDir)
+            $destinationpath
 
-$destinationpath = $destinationpath.Replace($_.Name,"")
-$destinationpath
+            $destinationpath = $destinationpath.Replace($_.Name, "")
+            $destinationpath
 
-If(!(test-path $destinationpath))
-{
-      New-Item -ItemType Directory -Force -Path $destinationpath
-}
-
+            If (!(test-path $destinationpath)) {
+                  New-Item -ItemType Directory -Force -Path $destinationpath
+            }
 
 
 
-Copy-Item -Path $_.FullName -Destination $destinationpath
-}
-else
-{
 
-}
+            Copy-Item -Path $_.FullName -Destination $destinationpath
+      }
+      else {
+
+      }
 }
