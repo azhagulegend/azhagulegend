@@ -7,11 +7,16 @@ $DestinationDir = 'C:\Azhagu\Repo\azhagulegend\'
 $nowtime1 = get-date -UFormat %d-%m-%Y
 Write-Host $TodayStartTime
 $TodayStartTime = [Datetime]::ParseExact($nowtime1, 'dd-MM-yyyy', $null)
-Write-Host $TodayStartTime
+# Write-Host $TodayStartTime
 
 Get-ChildItem -Recurse $sourceDir | ForEach-Object {
       $lastupdatetime = $_.LastWriteTime
+      # Write-Host $lastupdatetime
+      Write-Host $_.Name
+      Write-Host ($TodayStartTime - $lastupdatetime -le 0)
+      Write-Host $TodayStartTime       
       Write-Host $lastupdatetime
+      
       if ($TodayStartTime - $lastupdatetime -le 0) {
             Write-Host "File modified within 24 hours "$_.Name
             $_.Extension
