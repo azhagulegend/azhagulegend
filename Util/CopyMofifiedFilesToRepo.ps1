@@ -12,23 +12,25 @@ $TodayStartTime = [Datetime]::ParseExact($nowtime1, 'dd-MM-yyyy', $null)
 Get-ChildItem -Recurse $sourceDir | ForEach-Object {
       $lastupdatetime = $_.LastWriteTime
       # Write-Host $lastupdatetime
-      Write-Host $_.Name
-      Write-Host ($TodayStartTime - $lastupdatetime -le 0)
-      Write-Host $TodayStartTime       
-      Write-Host $lastupdatetime
+      # Write-Host $_.Name
+      
+      
+      # Write-Host ($TodayStartTime - $lastupdatetime -le 0)
+      # Write-Host $TodayStartTime       
+      # Write-Host $lastupdatetime
       
       if ($TodayStartTime - $lastupdatetime -le 0) {
             Write-Host "File modified within 24 hours "$_.Name
-            $_.Extension
-            $_.BaseName
+            # $_.Extension
+            # $_.BaseName
             $_.FullName
 
 
             $destinationpath = $_.FullName.Replace($sourceDir, $DestinationDir)
-            $destinationpath
+            # $destinationpath
 
             $destinationpath = $destinationpath.Replace($_.Name, "")
-            $destinationpath
+            # $destinationpath
 
             If (!(test-path $destinationpath)) {
                   New-Item -ItemType Directory -Force -Path $destinationpath
@@ -36,3 +38,5 @@ Get-ChildItem -Recurse $sourceDir | ForEach-Object {
             Copy-Item -Path $_.FullName -Destination $destinationpath
       }
 }
+
+exit
