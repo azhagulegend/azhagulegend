@@ -1,9 +1,5 @@
 committing B2
 myb2
 111111111
-<<<<<<< Updated upstream
 4444444
-=======
-
 ssss
->>>>>>> Stashed changes
