@@ -48,6 +48,7 @@ public class SortMaplist {
 		System.out.println(" mlFinal  = " + mlFinal);
 		Collections.sort(mlFinal, sortML.new CustomComparator("Key1","descending"));
 		System.out.println(" mlFinal  = " + mlFinal);
+		System.out.println(" mlFinal  = " + mlFinal);
 	}
 
 	private static String genrateRandomString() {
